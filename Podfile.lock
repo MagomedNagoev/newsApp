@@ -1,0 +1,34 @@
+PODS:
+  - Kingfisher (6.2.1)
+  - PureLayout (3.1.8)
+  - Realm (10.0.0):
+    - Realm/Headers (= 10.0.0)
+  - Realm/Headers (10.0.0)
+  - RealmSwift (10.0.0):
+    - Realm (= 10.0.0)
+  - SwiftLint (0.43.1)
+
+DEPENDENCIES:
+  - Kingfisher (~> 6.0)
+  - PureLayout
+  - RealmSwift
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - Kingfisher
+    - PureLayout
+    - Realm
+    - RealmSwift
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
+  PureLayout: a4afb3d79dd958564ce33d22c89f407280d8e6a8
+  Realm: 5654b8e5e45034d07b219e089034be2ef7d1e7bf
+  RealmSwift: 5b4c8c85be4c14ff52054a4d80a8d338167dd79c
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+
+PODFILE CHECKSUM: c1422de3f7e2c6d736f1afcf3c1354de76c53a65
+
+COCOAPODS: 1.9.3
