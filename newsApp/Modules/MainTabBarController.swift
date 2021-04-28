@@ -38,17 +38,13 @@ class MainTabBarController: UITabBarController {
         var imageAllChannel = UIImage()
         var imageFavoriteChannel = UIImage()
         var imageSearch = UIImage()
-        
+
         if #available(iOS 13.0, *) {
             imageAllChannel = UIImage(systemName: "newspaper")!
             imageFavoriteChannel = UIImage(systemName: "star")!
             imageSearch = UIImage(systemName: "magnifyingglass")!
         } else {
-            var imageAllChannel1 = UIImageView()
-            
-            imageAllChannel1.image = UIImage(named: "channels")!
-            imageAllChannel1.sizeThatFits(CGSize(width: 23, height: 23))
-            imageAllChannel = imageAllChannel1.image!
+            imageAllChannel = UIImage(named: "channels")!
         }
         let allChannelsViewController = AllChannelsViewController()
 
@@ -57,7 +53,6 @@ class MainTabBarController: UITabBarController {
             tabBarItemTitle: "All Channels",
             rootViewController: allChannelsViewController)
 
-        
         let favoriteChannelsViewController = FavoriteChannelsViewController()
         let favoriteNavigationController = templateNavigationController(
             image: imageFavoriteChannel,
@@ -74,11 +69,10 @@ class MainTabBarController: UITabBarController {
             let favoriteItem = UITabBarItem.SystemItem.favorites
             favoriteNavigationController.tabBarItem = UITabBarItem(tabBarSystemItem: favoriteItem, tag: 0)
             allChannelNavigationController.tabBarItem.image = imageAllChannel
-            
+
             let searchItem = UITabBarItem.SystemItem.search
             searchNavigationController.tabBarItem = UITabBarItem(tabBarSystemItem: searchItem, tag: 0)
         }
-
 
         viewControllers = [allChannelNavigationController,
                            favoriteNavigationController,

@@ -124,7 +124,7 @@ extension FavoriteNewsViewController: UITableViewDataSource, UITableViewDelegate
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
         let newsCount = articles.count
-//print(numberChannel,favoriteChannels.count,indexPath.row,newsCount-1)
+// print(numberChannel,favoriteChannels.count,indexPath.row,newsCount-1)
         if numberChannel < favoriteChannels.count && indexPath.row == newsCount-1 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                 self?.getData1(times: 3)

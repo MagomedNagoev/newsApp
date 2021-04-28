@@ -12,7 +12,7 @@ class SearchViewController: UIViewController {
     private var articles = [News]()
 
     private var searchController = UISearchController()
-    
+
     private var searchBar = UISearchBar()
 
     private let api = "8932dc51ea5f49c8b078c3063fffe07e"
@@ -95,7 +95,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
 
     func getData (with searchText: String?) {
-print(searchText)
+// print(searchText)
         if let text = searchText, text.count > 3 {
             let url = "https://newsapi.org/v2/everything?q=\(text)&apiKey=\(api)"
 
