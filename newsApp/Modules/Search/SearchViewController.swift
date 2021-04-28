@@ -132,6 +132,6 @@ extension SearchViewController {
     }
 
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        searchBar.endEditing(true)
     }
 }

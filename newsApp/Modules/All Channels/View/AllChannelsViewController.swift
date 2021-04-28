@@ -28,10 +28,10 @@ class AllChannelsViewController: UIViewController, FavotiteChannelProtocol {
         favoriteChannels = realm?.objects(FavoriteChannel.self)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        reloadTableview()
-        getData()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        reloadTableview()
+//        getData()
+//    }
 
     func getData() {
         let url = "https://newsapi.org/v2/sources?apiKey=\(api)"
