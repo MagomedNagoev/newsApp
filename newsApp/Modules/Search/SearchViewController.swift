@@ -130,8 +130,11 @@ extension SearchViewController {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
     @objc func dismissKeyboard() {
-        searchBar.endEditing(true)
+        if #available(iOS 11.0, *) {
+            searchController.searchBar.endEditing(true)
+        } else {
+            searchBar.endEditing(true)
+        }
     }
 }
