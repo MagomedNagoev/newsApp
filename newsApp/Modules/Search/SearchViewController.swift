@@ -12,6 +12,8 @@ class SearchViewController: UIViewController {
     private var articles = [News]()
 
     private var searchController = UISearchController()
+    
+    private var searchBar = UISearchBar()
 
     private let api = "8932dc51ea5f49c8b078c3063fffe07e"
 
@@ -27,16 +29,24 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        hideKeyboardOnTap()
     }
 
     func configureUI() {
-        title = "News"
+        title = "Search"
         view.backgroundColor = .white
-        navigationItem.searchController = searchController
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            navigationItem.titleView = searchBar
+            searchBar.barStyle = .black
+            searchBar.delegate = self
+            searchBar.placeholder = "Search"
+        }
 
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Candies"
+        searchController.searchBar.placeholder = "Search"
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -85,7 +95,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
 
     func getData (with searchText: String?) {
-
+print(searchText)
         if let text = searchText, text.count > 3 {
             let url = "https://newsapi.org/v2/everything?q=\(text)&apiKey=\(api)"
 
@@ -107,5 +117,21 @@ extension SearchViewController: UISearchBarDelegate {
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         getData(with: searchText)
+    }
+}
+
+extension SearchViewController {
+
+    func hideKeyboardOnTap() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(SearchViewController.dismissKeyboard))
+
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
