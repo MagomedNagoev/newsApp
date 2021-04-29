@@ -78,7 +78,7 @@ class ChannelCell:UITableViewCell {
         addSubview(favoriteButton)
         favoriteButton.autoAlignAxis(toSuperviewAxis: .horizontal)
         favoriteButton.autoPinEdge(.left, to: .right, of: descriptionLabel, withOffset: 10)
-        favoriteButton.autoSetDimensions(to: CGSize(width: 30, height: 30))
+        favoriteButton.autoSetDimensions(to: CGSize(width: 20, height: 20))
 
     }
 
@@ -96,11 +96,7 @@ class ChannelCell:UITableViewCell {
 
     func setFavoriteButton (isFavorite: Bool) {
         isFavoriteChannel = isFavorite
-        if #available(iOS 13.0, *) {
-            editImageFavoriteButton(color: .gray)
-        } else {
-            // Fallback on earlier versions
-        }
+        editImageFavoriteButton()
         favoriteButton.isSelected = isFavorite
         favoriteButton.addTarget(self, action: #selector(onFavoriteTapped), for: .touchUpInside)
     }
@@ -128,15 +124,21 @@ class ChannelCell:UITableViewCell {
         return String(newUrl)
     }
 
-    @available(iOS 13.0, *)
-    func editImageFavoriteButton (color: UIColor) {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
-        let imageCircle = UIImage(systemName: "circle",
-                            withConfiguration:
-                                configuration)?.withTintColor(color,renderingMode: .alwaysOriginal)
-        let imageCheck = UIImage(systemName: "checkmark.circle",
-                            withConfiguration:
-                                configuration)?.withTintColor(color,renderingMode: .alwaysOriginal)
+    func editImageFavoriteButton () {
+        var imageCircle = UIImage()
+        var imageCheck = UIImage()
+        if #available(iOS 13.0, *) {
+            let configuration = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
+            imageCircle = (UIImage(systemName: "circle",
+                                   withConfiguration:
+                                    configuration)?.withTintColor(.gray,renderingMode: .alwaysOriginal))!
+            imageCheck = (UIImage(systemName: "checkmark.circle",
+                                  withConfiguration:
+                                    configuration)?.withTintColor(.gray,renderingMode: .alwaysOriginal))!
+        } else {
+            imageCircle = UIImage(named: "circle")!
+            imageCheck = UIImage(named: "check")!
+        }
         favoriteButton.setImage(imageCircle, for: .normal)
         favoriteButton.setImage(imageCheck, for: .selected)
     }
