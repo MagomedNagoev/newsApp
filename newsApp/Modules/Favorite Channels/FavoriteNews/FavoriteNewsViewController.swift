@@ -8,6 +8,8 @@
 import UIKit
 import RealmSwift
 import PureLayout
+import Alamofire
+import Kingfisher
 
 class FavoriteNewsViewController: UIViewController {
 
@@ -33,39 +35,64 @@ class FavoriteNewsViewController: UIViewController {
 
         configureUI()
 
-        getData1(times: 3)
+        getData(times: 3)
+
+        isOnline()
     }
 
-    func getData1(times: Int) {
+    func fetchData(url: String) {
+        NetworkManager.fetchDataCache(url: url) { (articles) in
+            guard let news = articles.articles else { return }
+            self.articles += news
 
-        var url = "https://newsapi.org/v2/everything?sources="
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    func isOnline() {
+        guard DeviceManager.isConnectedToNetwork() else { presentNoWiFiAlert(); return }
+    }
+
+    func presentNoWiFiAlert() {
+        let alert = UIAlertController(title: "No internet connection",
+                                      message: "Please turn on Wi-Fi",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Go to the settings", style: .default) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                if UIApplication.shared.canOpenURL(url) {
+                   UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        })
+
+        alert.addAction(UIAlertAction(title: "Nope", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func getData (times: Int) {
+        let url = "https://newsapi.org/v2/everything?sources="
         if times < favoriteChannels.count - numberChannel {
             print("Загрузить \(times)")
             for _ in 0..<times {
                 if let channelId = favoriteChannels[numberChannel].channelId {
-                    url += "\(channelId),"
+                    let newUrl = url + "\(channelId)" + "&apiKey=\(api)"
                     numberChannel += 1
+                    fetchData(url: newUrl)
                 }
             }
         } else {
             print("Загрузить \(favoriteChannels.count - numberChannel)")
             for _ in 0..<favoriteChannels.count - numberChannel {
                 if let channelId = favoriteChannels[numberChannel].channelId {
-                    url += "\(channelId),"
+                    let newUrl = url + "\(channelId)" + "&apiKey=\(api)"
                     numberChannel += 1
+                    fetchData(url: newUrl)
                 }
             }
         }
-//        print(numberChannel)
-//        print(favoriteChannels.count - numberChannel)
-        url += "&apiKey=\(api)"
-        NetworkManager.fetchData(url: url, model: Articles()) {(articles) in
-            guard let news = articles.articles else { return }
-            self.articles += news
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+        //        print(numberChannel)
+        //        print(favoriteChannels.count - numberChannel)
     }
 
     func configureUI() {
@@ -111,11 +138,13 @@ extension FavoriteNewsViewController: UITableViewDataSource, UITableViewDelegate
               let channelId = news.source?.id
         else { return UITableViewCell() }
 
+        guard let urlImage = URL(string: imageUrlString) else { return UITableViewCell()}
+
         cell.set(titleNews: titleNews,
                  descriptionNews: descriprionNews,
-                 imageUrlString: imageUrlString,
                  nameChannel: nameChannel,
                  channelImage: findImageChannel(id: channelId))
+        cell.newsImage.kf.setImage(with: urlImage, placeholder: UIImage(named: "imageNews"))
 
         return cell
     }
@@ -127,7 +156,7 @@ extension FavoriteNewsViewController: UITableViewDataSource, UITableViewDelegate
 // print(numberChannel,favoriteChannels.count,indexPath.row,newsCount-1)
         if numberChannel < favoriteChannels.count && indexPath.row == newsCount-1 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                self?.getData1(times: 3)
+                self?.getData(times: 3)
             }
         }
     }

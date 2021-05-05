@@ -11,6 +11,7 @@
 		1B0BAD4C26344CC400CFAAE2 /* FavoriteNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BAD4B26344CC400CFAAE2 /* FavoriteNewsViewController.swift */; };
 		1B0BAD55263468B800CFAAE2 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BAD54263468B800CFAAE2 /* News.swift */; };
 		1B1ECE662635704300DFDC0C /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1ECE652635704300DFDC0C /* NewsCell.swift */; };
+		1B47B6392642C6AF005FCFF3 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47B6382642C6AF005FCFF3 /* DeviceManager.swift */; };
 		1B636F7A2631C29C0024EEDA /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B636F792631C29C0024EEDA /* StorageManager.swift */; };
 		1B718650262DE4420052B450 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B71864F262DE4420052B450 /* MainTabBarController.swift */; };
 		1B71865E262DE6580052B450 /* AllChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B71865D262DE6580052B450 /* AllChannelsViewController.swift */; };
@@ -52,6 +53,7 @@
 		1B0BAD4B26344CC400CFAAE2 /* FavoriteNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteNewsViewController.swift; sourceTree = "<group>"; };
 		1B0BAD54263468B800CFAAE2 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		1B1ECE652635704300DFDC0C /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		1B47B6382642C6AF005FCFF3 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		1B636F792631C29C0024EEDA /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		1B71864F262DE4420052B450 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1B71865D262DE6580052B450 /* AllChannelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChannelsViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				1B71867B262DF24D0052B450 /* NetworkManager.swift */,
 				1B636F792631C29C0024EEDA /* StorageManager.swift */,
+				1B47B6382642C6AF005FCFF3 /* DeviceManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				1B71867C262DF24D0052B450 /* NetworkManager.swift in Sources */,
 				1B0BAD4C26344CC400CFAAE2 /* FavoriteNewsViewController.swift in Sources */,
 				1BD36E93262DCBA80059E266 /* AppDelegate.swift in Sources */,
+				1B47B6392642C6AF005FCFF3 /* DeviceManager.swift in Sources */,
 				1B71865E262DE6580052B450 /* AllChannelsViewController.swift in Sources */,
 				1B1ECE662635704300DFDC0C /* NewsCell.swift in Sources */,
 				1B718681262DF62C0052B450 /* Channel.swift in Sources */,
@@ -772,7 +776,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KV4GN5FNLZ;
 				INFOPLIST_FILE = newsAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -781,7 +785,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Magomed.Nagoev.newsAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/newsApp.app/newsApp";
 			};
 			name = Debug;
@@ -795,7 +799,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KV4GN5FNLZ;
 				INFOPLIST_FILE = newsAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -804,7 +808,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Magomed.Nagoev.newsAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/newsApp.app/newsApp";
 			};
 			name = Release;
@@ -825,7 +829,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Magomed.Nagoev.newsAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = newsApp;
 			};
 			name = Debug;
@@ -846,7 +850,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Magomed.Nagoev.newsAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = newsApp;
 			};
 			name = Release;

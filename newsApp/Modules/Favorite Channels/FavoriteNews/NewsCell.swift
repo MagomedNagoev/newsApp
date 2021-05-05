@@ -7,12 +7,11 @@
 
 import UIKit
 import PureLayout
-import Kingfisher
 
 class NewsCell: UITableViewCell {
     static let identifier = "NewsCell"
 
-    private var newsImage:UIImageView = {
+    var newsImage:UIImageView = {
         let newsImage = UIImageView()
         newsImage.layer.masksToBounds = true
         newsImage.layer.cornerRadius = 10
@@ -95,17 +94,12 @@ class NewsCell: UITableViewCell {
 
     func set(titleNews: String,
              descriptionNews: String,
-             imageUrlString: String,
              nameChannel: String,
              channelImage: Data) {
-
-        guard let url = URL(string: imageUrlString) else { return }
 
         newsTitleLabel.text = titleNews
 
         newsDescriprionLabel.text = descriptionNews
-
-        newsImage.kf.setImage(with: url)
 
         nameChannelLabel.text = nameChannel
 

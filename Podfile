@@ -10,6 +10,8 @@ target 'newsApp' do
   pod 'SwiftLint'
   pod 'RealmSwift'
   pod 'Kingfisher', '~> 6.0'
+  pod 'Alamofire', '~> 5.2'
+
 
   target 'newsAppTests' do
     inherit! :search_paths

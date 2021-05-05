@@ -75,11 +75,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
               let url = news.url
         else { return UITableViewCell() }
 
+        guard let urlImage = URL(string: imageUrlString) else { return UITableViewCell()}
+
         cell.set(titleNews: titleNews,
                  descriptionNews: descriprionNews,
-                 imageUrlString: imageUrlString,
                  nameChannel: nameChannel,
                  channelImage: Data())
+
+        cell.newsImage.kf.setImage(with: urlImage)
 
         cell.addImageUrl(url: url)
 

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Alamofire
+
 class NetworkManager {
 
     static func getRequest(url: String) {
@@ -33,7 +35,7 @@ class NetworkManager {
         }.resume()
     }
 
-    static func fetchData<T: Decodable>(url: String, model: T, comletion:@escaping (_: T) -> Void) {
+    static func fetchData<T: Decodable>(url: String, model: T, comletion:@escaping (T) -> Void) {
         guard let url = URL(string: url) else {
             print("Не удалось создать URL")
             return
@@ -44,13 +46,57 @@ class NetworkManager {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let charecters = try decoder.decode(T.self, from: data)
+                let models = try decoder.decode(T.self, from: data)
 
-                comletion(charecters)
+                comletion(models)
             } catch let error {
                 print(error.localizedDescription)
             }
         }.resume()
+
+    }
+
+    static func fetchDataCache(url: String, comletion:@escaping (Articles) -> Void) {
+
+        guard let url = URL(string: url) else {
+            print("Не удалось создать URL")
+            return }
+
+        let request = URLRequest(url: url,
+                                 cachePolicy: .returnCacheDataElseLoad,
+                                 timeoutInterval: 20)
+
+        AF.request(request).responseJSON { (response) in
+            guard let newResponse = response.response,
+                  let data = response.data,
+                  let request = response.request else {
+                return
+            }
+
+            let cachedURLResponse = CachedURLResponse(response: newResponse,
+                                                      data: data,
+                                                      userInfo: nil,
+                                                      storagePolicy: .allowed)
+
+            URLCache.shared.storeCachedResponse(cachedURLResponse, for: request)
+
+            guard response.error == nil else {
+                print("error")
+                print(response.error!)
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let articles = try decoder.decode(Articles.self, from: cachedURLResponse.data)
+
+                comletion(articles)
+
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
 
     }
 }
